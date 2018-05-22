@@ -1,0 +1,19 @@
+{
+    "name": "marcollahc/udemy-php-ecommerce",
+    "authors": [
+        {
+            "name": "Marcos Medeiros",
+            "email": "marcolla.hc@gmail.com"
+        }
+    ],
+    "require": {
+    	"phpmailer/phpmailer":">=5.2.22",
+    	"slim/slim":"2.0",
+    	"rain/raintpl":">=3.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "vendor\\marcollahc\\classes\\src"
+        }
+    }
+}
