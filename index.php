@@ -2,16 +2,15 @@
 
 require_once("vendor/autoload.php");
 
-$app = new \Slim\Slim();
+use \Slim\Slim;
+use \MarcollaHC\Pages;
 
-$app->config('debug', true);
-
-$app->get('/', function() {
-    
-	echo "OK";
-
+$app = new Slim();
+$app->config("debug", true);
+$app->get("/", function() {
+	$page = new Pages();
+	$page->setTemplate("index");
 });
-
 $app->run();
 
  ?>
