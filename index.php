@@ -42,6 +42,57 @@ $app->get("/admin/logout", function () {
 	exit;
 });
 
+$app->get("/admin/users", function () {
+	Users::verify();
+	$users = Users::listAll();
+	$page = new PagesAdmin();
+	$page->setTemplate("users", array("users" => $users));
+});
+
+$app->get("/admin/users/create", function () {
+	Users::verify();
+	$page = new PagesAdmin();
+	$page->setTemplate("users-create");
+});
+
+$app->post("/admin/users/create", function () {
+	Users::verify();
+	$user = new Users();
+	$_POST["inadmin"] = $_POST["inadmin"] ?? 0;
+	$user->setData($_POST);
+	$user->save();
+	header("location: http://localhost/Exercises/Udemy/curso-completo-de-php-7/secao-24/projeto/admin/users");
+	exit;
+});
+
+$app->get("/admin/users/:iduser/delete", function ($iduser) {
+	Users::verify();
+	$user = new Users();
+	$user->get((int)$iduser);
+	$user->delete();
+	header("location: http://localhost/Exercises/Udemy/curso-completo-de-php-7/secao-24/projeto/admin/users");
+	exit;
+});
+
+$app->get("/admin/users/:iduser", function ($iduser) {
+	Users::verify();
+	$user = new Users();
+	$user->get((int)$iduser);
+	$page = new PagesAdmin();
+	$page->setTemplate("users-update", array("user" => $user->getValues()));
+});
+
+$app->post("/admin/users/:iduser", function ($iduser) {
+	Users::verify();
+	$user = new Users();
+	$user->get((int)$iduser);
+	$_POST["inadmin"] = $_POST["inadmin"] ?? 0;
+	$user->setData($_POST);
+	$user->update();
+	header("location: http://localhost/Exercises/Udemy/curso-completo-de-php-7/secao-24/projeto/admin/users");
+	exit;
+});
+
 $app->run();
 
 ?>
